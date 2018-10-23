@@ -137,7 +137,7 @@ public class PlayerController : MonoBehaviour {
 
             if (Input.GetKey(KeyCode.UpArrow))
             {
-
+                source.PlayOneShot(jumpClip);
                 rb2d.AddForce(new Vector2(0, jumpForce), ForceMode2D.Impulse);
                 rb2d.velocity = Vector2.up * jumpForce;
             }
@@ -149,7 +149,7 @@ public class PlayerController : MonoBehaviour {
 
             if (Input.GetKey(KeyCode.UpArrow))
             {
-
+                source.PlayOneShot(jumpClip);
                 rb2d.AddForce(new Vector2(0, jumpForce), ForceMode2D.Impulse);
                 rb2d.velocity = Vector2.up * jumpForce;
             }
@@ -158,6 +158,7 @@ public class PlayerController : MonoBehaviour {
 
         if (collision.collider.tag == ("Flagpole"))
         {
+            source.PlayOneShot(jumpClip);
             winText.text = "You Win! & You reached the end of the level!";
             source.PlayOneShot(winClip);
         }
@@ -166,6 +167,7 @@ public class PlayerController : MonoBehaviour {
         {
             if (Input.GetKey(KeyCode.UpArrow))
             {
+                source.PlayOneShot(jumpClip);
                 source.PlayOneShot(coinClip);
                 count = count + 1;
                 SetCountText();
