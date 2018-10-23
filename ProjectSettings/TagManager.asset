@@ -16,6 +16,8 @@ TagManager:
   - CoinBox
   - NewEnemy
   - Death
+  - MushroomBox
+  - Mushroom
   layers:
   - Default
   - TransparentFX

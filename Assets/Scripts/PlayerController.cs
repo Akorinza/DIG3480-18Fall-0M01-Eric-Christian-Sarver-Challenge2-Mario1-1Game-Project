@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour {
     private AudioSource source;
     public AudioClip jumpClip;
     public AudioClip coinClip;
+    public AudioClip coinPickUpClip;
     public AudioClip winClip;
     public AudioClip NewEnemyDeathClip;
     public AudioClip deathClip;
@@ -53,6 +54,14 @@ public class PlayerController : MonoBehaviour {
     {
 
         if (other.gameObject.CompareTag ("CoinPickUp"))
+        {
+            source.PlayOneShot(coinPickUpClip);
+            other.gameObject.SetActive(false);
+            count = count + 1;
+            SetCountText();
+        }
+
+        if (other.gameObject.CompareTag("Mushroom"))
         {
             other.gameObject.SetActive(false);
             count = count + 1;
@@ -111,15 +120,14 @@ public class PlayerController : MonoBehaviour {
     void OnCollisionStay2D(Collision2D collision)
     {
 
-        float vol = Random.Range(volLowRange, volHighRange);
-        source.PlayOneShot(jumpClip);
-
         if (collision.collider.tag == "Ground") {
 
             if (Input.GetKey(KeyCode.UpArrow)) {
 
                 rb2d.AddForce(new Vector2(0, jumpForce), ForceMode2D.Impulse);
                 rb2d.velocity = Vector2.up * jumpForce;
+                float vol = Random.Range(volLowRange, volHighRange);
+                source.PlayOneShot(jumpClip);
             }
 
         }
@@ -148,11 +156,25 @@ public class PlayerController : MonoBehaviour {
 
         }
 
+        if (collision.collider.tag == ("Flagpole"))
+        {
+            winText.text = "You Win! & You reached the end of the level!";
+            source.PlayOneShot(winClip);
+        }
+
         if (collision.collider.tag == ("CoinBox"))
         {
-            source.PlayOneShot(coinClip);
-            count = count + 1;
-            SetCountText();
+            if (Input.GetKey(KeyCode.UpArrow))
+            {
+                source.PlayOneShot(coinClip);
+                count = count + 1;
+                SetCountText();
+            }
+        }
+
+        if (collision.collider.tag == ("MushroomBox"))
+        {
+ 
         }
 
         if (collision.collider.tag == "NewEnemy")
